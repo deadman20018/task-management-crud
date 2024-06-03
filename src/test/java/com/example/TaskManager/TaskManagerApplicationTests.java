@@ -33,7 +33,7 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void createTaskTest() {
+	void shouldCreateTask() {
 		Task task = new Task();
 		when(taskService.createTask(any(Task.class))).thenReturn(task);
 
@@ -45,23 +45,22 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void getAllTasksTest() {
-		List<Task> taskList = new ArrayList<>();
-		when(taskService.getAllTasks()).thenReturn(taskList);
+	void shouldReturnAllTasks() {
+		List<Task> tasks = new ArrayList<>();
+		when(taskService.getAllTasks()).thenReturn(tasks);
 
 		ResponseEntity<List<Task>> response = taskController.getAllTasks();
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(taskList, response.getBody());
+		assertEquals(tasks, response.getBody());
 		verify(taskService, times(1)).getAllTasks();
 	}
 
 	@Test
-	void getTaskByIdTest() {
+	void shouldReturnTaskById() {
 		long taskId = 1L;
 		Task task = new Task();
-		Optional<Task> optionalTask = Optional.of(task);
-		when(taskService.getTaskById(taskId)).thenReturn(optionalTask);
+		when(taskService.getTaskById(taskId)).thenReturn(Optional.of(task));
 
 		ResponseEntity<Task> response = taskController.getTaskById(taskId);
 
@@ -71,10 +70,9 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void getTaskByIdNotFoundTest() {
+	void shouldReturnNotFoundForNonExistingTask() {
 		long taskId = 1L;
-		Optional<Task> optionalTask = Optional.empty();
-		when(taskService.getTaskById(taskId)).thenReturn(optionalTask);
+		when(taskService.getTaskById(taskId)).thenReturn(Optional.empty());
 
 		ResponseEntity<Task> response = taskController.getTaskById(taskId);
 
@@ -83,7 +81,7 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void updateTaskTest() {
+	void shouldUpdateTask() {
 		long taskId = 1L;
 		Task task = new Task();
 		when(taskService.updateTask(any(Task.class))).thenReturn(task);
@@ -96,10 +94,10 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void deleteTaskByIdTest() {
+	void shouldDeleteTaskById() {
 		long taskId = 1L;
 
-		ResponseEntity<Void> response = taskController.deleteTaskById(taskId);
+		ResponseEntity<Void> response = taskController.deleteTask(taskId);
 
 		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 		verify(taskService, times(1)).deleteTaskById(taskId);

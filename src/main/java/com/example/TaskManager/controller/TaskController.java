@@ -21,34 +21,34 @@ public class TaskController {
 		this.taskService = taskService;
 	}
 
-	@PostMapping("/create")
+	@PostMapping
 	public ResponseEntity<Task> createTask(@RequestBody Task task) {
 		Task createdTask = taskService.createTask(task);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
+		return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/all")
+	@GetMapping
 	public ResponseEntity<List<Task>> getAllTasks() {
 		List<Task> tasks = taskService.getAllTasks();
-		return ResponseEntity.ok().body(tasks);
+		return ResponseEntity.ok(tasks);
 	}
 
-	@GetMapping("/find/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Task> getTaskById(@PathVariable("id") long taskId) {
-		Optional<Task> task = taskService.getTaskById(taskId);
-		return task.map(ResponseEntity::ok)
+		return taskService.getTaskById(taskId)
+				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Task> updateTask(@PathVariable("id") long taskId, @RequestBody Task task) {
 		task.setId(taskId);
 		Task updatedTask = taskService.updateTask(task);
 		return ResponseEntity.ok(updatedTask);
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteTaskById(@PathVariable("id") long taskId) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteTask(@PathVariable("id") long taskId) {
 		taskService.deleteTaskById(taskId);
 		return ResponseEntity.noContent().build();
 	}
