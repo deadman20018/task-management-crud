@@ -45,11 +45,11 @@ class TaskControllerTest {
 	}
 
 	@Test
-	void getAllTasksTest() {
+	void searchTasksTest() {
 		List<Task> taskList = new ArrayList<>();
 		when(taskService.getAllTasks()).thenReturn(taskList);
 
-		ResponseEntity<List<Task>> response = taskController.getAllTasks();
+		ResponseEntity<List<Task>> response = taskController.searchTasks();
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(taskList, response.getBody());

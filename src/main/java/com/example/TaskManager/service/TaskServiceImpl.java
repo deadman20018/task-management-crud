@@ -5,6 +5,7 @@ import com.example.TaskManager.repository.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,15 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteTaskById(long taskId) {
 		taskRepo.deleteById(taskId);
+	}
+
+	@Override
+	public List<Task> findByTitleLike(String titleLike) {
+		return List.of();
+	}
+
+	@Override
+	public List<Task> findCompletedBefore(Boolean completed, LocalDate beforeDueDate) {
+		return List.of();
 	}
 }
