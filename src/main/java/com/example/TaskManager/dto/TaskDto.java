@@ -5,19 +5,25 @@ import com.example.TaskManager.model.Task;
 import java.time.LocalDate;
 
 public class TaskDto {
-    private long id;
-    private String title;
-    private String description;
-    private String dueDate;
-    private boolean completed;
+    private final long id;
+    private final String title;
+    private final String description;
+    private final LocalDate dueDate;
+    private final boolean completed;
 
-    public TaskDto() {}
+    public TaskDto(long id, String title, String description, LocalDate dueDate, boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.completed = completed;
+    }
 
     public TaskDto(Task task) {
         this.id = task.getId();
         this.title = task.getTitle();
         this.description = task.getDescription();
-        this.dueDate = task.getDueDate().toString();
+        this.dueDate = task.getDueDate();
         this.completed = task.isCompleted();
     }
 
@@ -33,7 +39,7 @@ public class TaskDto {
         return description;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
@@ -42,6 +48,6 @@ public class TaskDto {
     }
 
     public Task toTask() {
-        return new Task(this.id, this.title, this.description, LocalDate.parse(this.dueDate), this.completed);
+        return new Task(this.title, this.description, this.dueDate, this.completed);
     }
 }

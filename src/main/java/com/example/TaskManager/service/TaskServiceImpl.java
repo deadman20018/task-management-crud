@@ -46,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 			existingTask.setCompleted(task.isCompleted());
 			return taskRepo.save(existingTask);
 		} else {
-			return null;
+			throw new RuntimeException("Task not found with id: " + task.getId());
 		}
 	}
 
@@ -57,11 +57,11 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> findByTitleLike(String titleLike) {
-		return List.of();
+		return taskRepo.findByTitleContainingIgnoreCase(titleLike);
 	}
 
 	@Override
 	public List<Task> findCompletedBefore(Boolean completed, LocalDate beforeDueDate) {
-		return List.of();
+		return taskRepo.findByCompletedAndDueDateBefore(completed, beforeDueDate);
 	}
 }

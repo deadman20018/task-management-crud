@@ -21,20 +21,22 @@ public class Task {
 	@Column(name="completed")
 	private boolean completed;
 
-	public Task(){}
+	public Task() {}
 
-	public Task(long id, String title, String description, LocalDate dueDate, boolean completed) {
-		this.id = id;
+	public Task(String title, String description, LocalDate dueDate, boolean completed) {
 		this.title = title;
 		this.description = description;
 		this.dueDate = dueDate;
 		this.completed = completed;
 	}
 
-
 	public long getId() {
 		return id;
-	}	
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -66,10 +68,5 @@ public class Task {
 
 	public void setCompleted(boolean completed) {
 		this.completed = completed;
-	}
-
-
-	public void setId(long id) {
-		this.id = id;
 	}
 }
